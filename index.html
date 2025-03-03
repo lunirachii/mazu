@@ -12,13 +12,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* 讓內容靠上 */
+            justify-content: flex-start;
             height: 90vh;
             background: url('TT.jpg') no-repeat center center/cover;
             text-align: center;
             color: red;
             font-family: STKaiTi, sans-serif;
-            overflow: hidden; /* 防止滾動條 */
+            overflow: hidden;
         }
 
         h1 {
@@ -43,27 +43,20 @@
         }
 
         .smoke {
-            position: absolute;
-            width: 200px; /* 讓煙霧變大 */
+            position: absolute; /* 讓煙霧出現在點擊的位置 */
+            width: 200px;
             height: 200px;
-            background: url('smoke.png') no-repeat center/contain;
-            filter: grayscale(100%); /* 變成灰色 */
-            opacity: 1;
-            pointer-events: none;
-            animation: fadeOut 1.5s ease-out forwards;
+            background: url('smoke.png') no-repeat center/contain; /* 煙霧圖片 */
+            opacity: 1; /* 初始完全不透明 */
+            pointer-events: none; /* 不影響滑鼠點擊 */
+            animation: fadeOut 1.5s ease-out forwards; /* 淡出動畫 */
         }
-
 
         @keyframes fadeOut {
-            0% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(2); /* 變大 2 倍再消失 */
-            }
+            0% { opacity: 1; transform: scale(1); } /* 原始大小，完全可見 */
+            100% { opacity: 0; transform: scale(2); } /* 變大兩倍後消失 */
         }
+
 
     </style>
 </head>
@@ -82,12 +75,12 @@
     document.addEventListener("click", function (event) {
         let smoke = document.createElement("div");
         smoke.classList.add("smoke");
-        smoke.style.left = event.clientX - 100 + "px"; // 讓煙霧中心對準滑鼠
+        smoke.style.left = event.clientX - 100 + "px";
         smoke.style.top = event.clientY - 100 + "px";
         document.body.appendChild(smoke);
 
         setTimeout(() => {
-            smoke.remove(); // 1.5 秒後刪除煙霧
+            smoke.remove();
         }, 1500);
     });
 
