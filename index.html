@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>媽祖等候畫面</title>
 
     <style>
-
         body {
             margin: 0;
             padding: 0;
@@ -20,11 +18,13 @@
             text-align: center;
             color: red;
             font-family: STKaiTi, sans-serif;
+            overflow: hidden; /* 防止滾動條 */
+            cursor: url('./images/incense.png') 16 16, auto;
         }
 
         h1 {
             font-size: 55px;
-            margin-bottom: 20px; /* 縮小標題與圖片的間距 */
+            margin-bottom: 20px;
         }
 
         .image-container {
@@ -39,8 +39,31 @@
 
         p {
             font-size: 20px;
-            margin-top: 30px; /* 縮小圖片和文字間距 */
+            margin-top: 30px;
             font-weight: bold;
+        }
+
+        .smoke {
+            position: absolute;
+            width: 200px; /* 讓煙霧變大 */
+            height: 200px;
+            background: url('smoke.png') no-repeat center/contain;
+            filter: grayscale(100%); /* 變成灰色 */
+            opacity: 1;
+            pointer-events: none;
+            animation: fadeOut 1.5s ease-out forwards;
+        }
+
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2); /* 變大 2 倍再消失 */
+            }
         }
 
     </style>
@@ -49,11 +72,27 @@
 <body>
 
 <h1>\|/ 媽祖娘娘忙碌中 \|/<br>請耐心等候</h1>
+<p style="font-size: 14px; color: red; margin-top: -10px;">* 點擊增加廟內香火 *</p>
 
 <div class="image-container">
     <img src='MM.png' alt="媽祖圖片">
 </div>
 
-</body>
+<script>
 
+    document.addEventListener("click", function (event) {
+        let smoke = document.createElement("div");
+        smoke.classList.add("smoke");
+        smoke.style.left = event.clientX - 100 + "px"; // 讓煙霧中心對準滑鼠
+        smoke.style.top = event.clientY - 100 + "px";
+        document.body.appendChild(smoke);
+
+        setTimeout(() => {
+            smoke.remove(); // 1.5 秒後刪除煙霧
+        }, 1500);
+    });
+
+</script>
+
+</body>
 </html>
